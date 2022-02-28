@@ -1,11 +1,7 @@
 new Vue({
     el: '#app',
     data: {
-        message: null,
         cbxColor: false,
-        pseudo: {
-            fields: [],
-        },
         embed: {
             color: "#0099ff",
             title: 'This is the title',
@@ -53,6 +49,10 @@ new Vue({
                 icon_url: 'https://katerlol.github.io/discord-embed-generator/img/katerbot-pfp.webp',
             },
         },
+    },
+
+    components: {
+            draggable: window['vuedraggable'],
     },
 
     methods: {
