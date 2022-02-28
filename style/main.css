@@ -1,0 +1,65 @@
+body {
+    background-color: #2f3136;
+    --background-color: #202225;
+    overflow-y: scroll;
+}
+
+h1 {
+    color: white;
+    margin-top: 1rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.primary {
+    color: #00b0f4;
+    font-weight: 400;
+}
+
+label {
+    color: white;
+    text-align: right;
+}
+
+.form-control {
+    background-color: #36393f;
+    color: white;
+    border: none;
+}
+
+.form-group {
+    margin-bottom: 0.5rem;
+}
+
+.input-group-text {
+    display: block;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border: inset 0 -1px 0 rgb(0 0 0 / 13%); 
+}
+
+.accordion-item {
+    background: transparent;
+}
+
+.accordion-button {
+background-color: transparent;
+color: white;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: transparent;
+    color: white;
+}
+
+.form-embed-field {
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, .05);
+    margin-bottom: 1rem;
+    border-radius: 5px;
+}
+
+.discord-messages {
+    position: fixed;
+}
