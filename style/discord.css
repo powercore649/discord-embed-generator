@@ -151,12 +151,21 @@
 .discord-embed .discord-embed-field {
     min-width: 100%;
     margin-top: 5px;
+    border: solid 1px transparent;
+}
+
+.discord-embed .discord-embed-field.hovered {
+    border: solid 1px orangered;
 }
 
 .discord-embed .discord-embed-field .discord-embed-field-title {
-    color: #72767d;
+    color: white;
     font-weight: 500;
     margin-bottom: 2px;
+}
+
+.discord-embed .discord-embed-field .discord-embed-field-value {
+    white-space: pre-line;
 }
 
 .discord-embed .discord-embed-field.discord-embed-field-inline {

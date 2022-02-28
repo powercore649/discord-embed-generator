@@ -3,13 +3,16 @@ new Vue({
     data: {
         message: null,
         cbxColor: false,
+        pseudo: {
+            fields: [],
+        },
         embed: {
-            color: "",
+            color: "#0099ff",
             title: 'This is the title',
             url: 'https://discord.js.org',
             author: {
                 name: 'Kater-Bot',
-                icon_url: 'https://cdn.discordapp.com/avatars/785894890290544680/d41b507f2a397929104c647c86037a77.webp?size=80',
+                icon_url: 'https://katerlol.github.io/discord-embed-generator/img/katerbot-pfp.webp',
                 url: 'https://discord.js.org',
             },
             description: 'This is the description',
@@ -47,7 +50,7 @@ new Vue({
             timestamp: new Date(),
             footer: {
                 text: 'Some footer text here',
-                icon_url: 'https://cdn.discordapp.com/avatars/785894890290544680/d41b507f2a397929104c647c86037a77.webp?size=80',
+                icon_url: 'https://katerlol.github.io/discord-embed-generator/img/katerbot-pfp.webp',
             },
         },
     },
@@ -67,7 +70,8 @@ new Vue({
             const embedToPrint = Object.assign({}, this.embed);
 
             for (let i = 0; i < embedToPrint.fields; i++) {
-                embedToPrint.fields[i].name = embedToPrint.fields[i].name ? embedToPrint.fields[i].name : '\\u200b';
+                embedToPrint.fields[i].name = embedToPrint.fields[i].name ? embedToPrint.fields[i].name.trim() : '\\u200b';
+                embedToPrint.fields[i].value = embedToPrint.fields[i].value ? embedToPrint.fields[i].value.trim() : '\\u200b';
             }
 
             for (let key of Object.keys(embedToPrint)) {
@@ -129,6 +133,8 @@ new Vue({
             this.$nextTick(() => {
                 if (!event.target.checked) {
                     this.embed.timestamp = "";
+                } else {
+                    this.embed.timestamp = new Date();
                 }
             });
         },
@@ -141,6 +147,7 @@ new Vue({
                 if(typeof value == "string") {
                     this.embed[key] = "";
                 }
+                this.clearColor();
                 this.embed.author.name = "";
                 this.embed.author.icon_url = "";
                 this.embed.author.url = "";
@@ -153,8 +160,18 @@ new Vue({
 
             }
         },
+
+        hoverField: function (index) {
+            document.querySelectorAll('.discord-embed .discord-embed-field')[index].classList.add("hovered");
+        },
+
+        blurField: function (index) {
+            document.querySelectorAll('.discord-embed .discord-embed-field')[index].classList.remove("hovered");
+        },
     },
 
-    created: function () {}
+    created: function () {
+        this.updateColor("#0099ff");
+    }
 
 })
