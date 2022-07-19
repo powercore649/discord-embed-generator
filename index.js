@@ -11,7 +11,7 @@ new Vue({
                 icon_url: 'https://katerlol.github.io/discord-embed-generator/img/katerbot-pfp.webp',
                 url: 'https://discord.js.org',
             },
-            description: 'This is the description',
+            description: '*This* ~~is~~ the **description**',
             thumbnail: {
                 url: 'https://picsum.photos/200/200',
             },
@@ -49,13 +49,33 @@ new Vue({
                 icon_url: 'https://katerlol.github.io/discord-embed-generator/img/katerbot-pfp.webp',
             },
         },
+
+        rules: [
+            //bold, italics and paragragh rules
+            [/\*\*\s?([^\n]+)\*\*/g, "<b>$1</b>"],
+            [/\*\*\*\s?([^\n]+)\*\*\*/g, "<b><i>$1</i></b>"],
+            [/\*\s?([^\n]+)\*/g, "<i>$1</i>"],
+            [/~~([^_]+)~~/g, "<s>$1</s>"],
+            [/_([^_`]+)_/g, "<i>$1</i>"],
+            [/([^\n]+\n?)/g, "<p>$1</p>"],
+        ]
     },
 
     components: {
-            draggable: window['vuedraggable'],
+        draggable: window['vuedraggable'],
     },
 
     methods: {
+        fromMarkdown(str) {
+            let preview = str;
+
+            this.rules.forEach(([rule, template]) => {
+                preview= preview.replace(rule, template)
+            })
+
+            return preview;
+        },
+
         printTimestamp: function (timestamp) {
             return timestamp.toLocaleString();
         },
@@ -93,7 +113,7 @@ new Vue({
             if (embedToPrint.footer.text === "" && embedToPrint.footer.icon_url === "")
                 delete embedToPrint.footer;
 
-                alert(`!richembed post ${JSON.stringify(embedToPrint)}`);
+            alert(`!richembed post ${JSON.stringify(embedToPrint)}`);
             return JSON.stringify(embedToPrint);
         },
 
@@ -144,7 +164,7 @@ new Vue({
             for (let key of Object.keys(this.embed)) {
                 let value = this.embed[key];
                 console.log(key, typeof value);
-                if(typeof value == "string") {
+                if (typeof value == "string") {
                     this.embed[key] = "";
                 }
                 this.clearColor();

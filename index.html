@@ -379,8 +379,7 @@
                                                         </a>
                                                     </div>
 
-                                                    <div v-if="embed.description" class="discord-embed-description">
-                                                        {{embed.description}}
+                                                    <div v-if="embed.description" class="discord-embed-description"  v-html="fromMarkdown(embed.description)">
                                                     </div>
 
                                                     <div class="discord-embed-fields">
@@ -389,7 +388,7 @@
                                                                 v-bind:class="{ 'discord-embed-field-inline': field.inline }">
                                                                 <div class="discord-embed-field-title">{{field.name}}
                                                                 </div>
-                                                                <div class="discord-embed-field-value">{{field.value}}
+                                                                <div class="discord-embed-field-value" v-html="fromMarkdown(field.value)">
                                                                 </div>
                                                             </div>
                                                         </template>
