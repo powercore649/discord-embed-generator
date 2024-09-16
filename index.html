@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discord Embed Generator by Kater</title>
-    <meta name="description" content="Generate a valid Message Embed JSON String by using this Discord Embed Generator by Kater to set up your Message Embeds in no time.">
+    <meta name="description"
+        content="Generate a valid Message Embed JSON String by using this Discord Embed Generator by Kater to set up your Message Embeds in no time.">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -90,7 +91,7 @@
                                         <div class="form-group row">
                                             <label for="description" class="col-3 col-form-label">Description</label>
                                             <div class="col-9">
-                                                <textarea id="description" name="description" cols="40" rows="5"
+                                                <textarea id="description" ref="descriptionInput" name="description" cols="40" rows="5"
                                                     v-model="embed.description" class="form-control"></textarea>
                                             </div>
                                         </div>
@@ -202,60 +203,61 @@
                                     <div class="accordion-body">
                                         <div class="fields row">
                                             <draggable v-model="embed.fields" @start="drag=true" @end="drag=false">
-                                            <template v-for="(field, index) in embed.fields" :key="index">
-                                                <div class="form-embed-field col-12" @mouseover="hoverField(index)" @mouseleave="blurField(index)">
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <div class="form-group row">
-                                                                <label :for="`field-name-${index}`"
-                                                                    class="col-3 col-form-label">Field Name</label>
+                                                <template v-for="(field, index) in embed.fields" :key="index">
+                                                    <div class="form-embed-field col-12" @mouseover="hoverField(index)"
+                                                        @mouseleave="blurField(index)">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="form-group row">
+                                                                    <label :for="`field-name-${index}`"
+                                                                        class="col-3 col-form-label">Field Name</label>
 
-                                                                <div class="col-9">
-                                                                    <div class="input-group">
-                                                                        <input :name="`field-name-${index}`"
-                                                                            :id="`field-name-${index}`"
-                                                                            placeholder="Embed Name"
-                                                                            v-model="field.name" type="text"
-                                                                            class="form-control">
+                                                                    <div class="col-9">
+                                                                        <div class="input-group">
+                                                                            <input :name="`field-name-${index}`"
+                                                                                :id="`field-name-${index}`"
+                                                                                placeholder="Embed Name"
+                                                                                v-model="field.name" type="text"
+                                                                                class="form-control">
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <div class="form-group row">
-                                                                <label :for="`field-value-${index}`"
-                                                                    class="col-3 col-form-label">Field Value</label>
+                                                            <div class="col-12">
+                                                                <div class="form-group row">
+                                                                    <label :for="`field-value-${index}`"
+                                                                        class="col-3 col-form-label">Field Value</label>
 
-                                                                <div class="col-9">
-                                                                    <div class="input-group">
-                                                                        <textarea :name="`field-value-${index}`"
-                                                                            :id="`field-value-${index}`" cols="40"
-                                                                            rows="2" v-model="field.value"
-                                                                            class="form-control">{{ field.value }}</textarea>
+                                                                    <div class="col-9">
+                                                                        <div class="input-group">
+                                                                            <textarea :name="`field-value-${index}`"
+                                                                                :id="`field-value-${index}`" cols="40"
+                                                                                rows="2" v-model="field.value"
+                                                                                class="form-control">{{ field.value }}</textarea>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-9 offset-3">
+                                                            <div class="col-9 offset-3">
 
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    :name="`field-inline-${index}`"
-                                                                    :id="`field-inline-${index}`"
-                                                                    v-model="field.inline">
-                                                                <label class="form-check-label"
-                                                                    :for="`field-inline-${index}`">
-                                                                    Display inline
-                                                                </label>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        :name="`field-inline-${index}`"
+                                                                        :id="`field-inline-${index}`"
+                                                                        v-model="field.inline">
+                                                                    <label class="form-check-label"
+                                                                        :for="`field-inline-${index}`">
+                                                                        Display inline
+                                                                    </label>
+                                                                </div>
+                                                                <button class="btn btn-link btn-sm text-danger"
+                                                                    type="submit"
+                                                                    @click="deleteField(index)">Delete</button>
                                                             </div>
-                                                            <button class="btn btn-link btn-sm text-danger"
-                                                                type="submit"
-                                                                @click="deleteField(index)">Delete</button>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </template>
-                                        </draggable>
+                                                </template>
+                                            </draggable>
                                         </div>
                                         <div class="row">
                                             <button class="btn btn-primary field-add-button" @click="addField"
@@ -332,6 +334,15 @@
 
                                 <button name="submit" class="btn btn-danger" @click="clearEmbed">Clear</button>
                             </div>
+                            <div class="output-wrapper">
+                                <textarea class="output" v-model="output"></textarea>
+                                <div class="output-button-wrapper">
+                                    <button class="output-btn btn btn-primary" @click="copyCommandToClipboard">!<i
+                                            class="fa fa-copy"></i></button>
+                                    <button class="output-btn btn btn-secondary" @click="copyToClipboard"><i
+                                            class="fa fa-copy"></i></button>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -379,7 +390,8 @@
                                                         </a>
                                                     </div>
 
-                                                    <div v-if="embed.description" class="discord-embed-description"  v-html="fromMarkdown(embed.description)">
+                                                    <div v-if="embed.description" class="discord-embed-description"
+                                                        v-html="fromMarkdown(embed.description)">
                                                     </div>
 
                                                     <div class="discord-embed-fields">
@@ -388,7 +400,8 @@
                                                                 v-bind:class="{ 'discord-embed-field-inline': field.inline }">
                                                                 <div class="discord-embed-field-title">{{field.name}}
                                                                 </div>
-                                                                <div class="discord-embed-field-value" v-html="fromMarkdown(field.value)">
+                                                                <div class="discord-embed-field-value"
+                                                                    v-html="fromMarkdown(field.value)">
                                                                 </div>
                                                             </div>
                                                         </template>
@@ -409,8 +422,8 @@
                                                     <span>{{ embed.footer.text }}</span>
                                                     <span v-if="embed.timestamp" class="discord-embed-footer-separator">
                                                         • </span>
-                                                    <span
-                                                        v-if="embed.timestamp">{{ printTimestamp(embed.timestamp) }}</span>
+                                                    <span v-if="embed.timestamp">{{ printTimestamp(embed.timestamp)
+                                                        }}</span>
                                                 </span>
                                             </div>
                                         </div>
@@ -422,11 +435,53 @@
                 </div>
             </div>
         </div>
+
+        <!-- Success and Error Toasts -->
+        <div aria-live="polite" aria-atomic="true" class="position-relative">
+            <div class="toast-container position-fixed top-0 end-0 p-3">
+                <!-- Success Toast -->
+                <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive"
+                    aria-atomic="true" ref="successToast">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            Successfully copied to clipboard!
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                            aria-label="Close"></button>
+                    </div>
+                </div>
+                
+                <!-- Command Success Toast -->
+                <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive"
+                    aria-atomic="true" ref="commandSuccessToast">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            Bot-Command Successfully copied to clipboard!
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                            aria-label="Close"></button>
+                    </div>
+                </div>
+
+                <!-- Error Toast -->
+                <div class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive"
+                    aria-atomic="true" ref="errorToast">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            Failed to copy!
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                            aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-    </script>
+        </script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
