@@ -1,3 +1,20 @@
+/**
+    Copyright (C) 2024 katerlol
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
 new Vue({
     el: '#app',
     data: {
@@ -270,17 +287,45 @@ new Vue({
 
         wrapSelection: function (wrapper) {
             const textarea = this.$refs.descriptionInput;
-            const start = textarea.selectionStart;
-            const end = textarea.selectionEnd;
-            const text = textarea.value;
-            const selectedText = text.slice(start, end);
-            const newText =
-                text.slice(0, start) + wrapper + selectedText + wrapper + text.slice(end);
-            textarea.value = newText;
-            this.embed.description = newText;
-            // Update the cursor position
-            textarea.selectionStart = start + wrapper.length;
-            textarea.selectionEnd = end + wrapper.length;
+            let start = textarea.selectionStart;
+            let end = textarea.selectionEnd;
+            let text = textarea.value;
+            let selectedText = text.slice(start, end);
+    
+            // Check if the selection includes the wrapper at the start and end
+            if (selectedText.startsWith(wrapper) && selectedText.endsWith(wrapper)) {
+                // Remove wrapper from selection
+                selectedText = selectedText.slice(wrapper.length, selectedText.length - wrapper.length);
+                const newText = text.slice(0, start) + selectedText + text.slice(end);
+                textarea.value = newText;
+                this.embed.description = newText;
+                // Update cursor positions
+                textarea.selectionStart = start;
+                textarea.selectionEnd = end - 2 * wrapper.length;
+            } else if (
+                text.slice(start - wrapper.length, start) === wrapper &&
+                text.slice(end, end + wrapper.length) === wrapper
+            ) {
+                // Remove wrapper outside selection
+                const newText =
+                    text.slice(0, start - wrapper.length) +
+                    selectedText +
+                    text.slice(end + wrapper.length);
+                textarea.value = newText;
+                this.embed.description = newText;
+                // Update cursor positions
+                textarea.selectionStart = start - wrapper.length;
+                textarea.selectionEnd = end - wrapper.length;
+            } else {
+                // Add wrapper
+                const newText =
+                    text.slice(0, start) + wrapper + selectedText + wrapper + text.slice(end);
+                textarea.value = newText;
+                this.embed.description = newText;
+                // Update the cursor position
+                textarea.selectionStart = start + wrapper.length;
+                textarea.selectionEnd = end + wrapper.length;
+            }
         },
     },
 

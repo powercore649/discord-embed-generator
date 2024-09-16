@@ -2,6 +2,22 @@
 <html lang="en">
 
 <head>
+    <!-- 
+        Copyright (C) 2024 katerlol
+
+        This program is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+        GNU General Public License for more details.
+
+        You should have received a copy of the GNU General Public License
+        along with this program. If not, see <https://www.gnu.org/licenses/>.
+    -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +27,12 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+    <link rel="manifest" href="/img/site.webmanifest">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style/discord.css">
     <link rel="stylesheet" href="style/main.css">
@@ -91,8 +113,9 @@
                                         <div class="form-group row">
                                             <label for="description" class="col-3 col-form-label">Description</label>
                                             <div class="col-9">
-                                                <textarea id="description" ref="descriptionInput" name="description" cols="40" rows="5"
-                                                    v-model="embed.description" class="form-control"></textarea>
+                                                <textarea id="description" ref="descriptionInput" name="description"
+                                                    cols="40" rows="5" v-model="embed.description"
+                                                    class="form-control"></textarea>
                                             </div>
                                         </div>
 
@@ -334,7 +357,7 @@
 
                                 <button name="submit" class="btn btn-danger" @click="clearEmbed">Clear</button>
                             </div>
-                            <div class="output-wrapper">
+                            <div class="output-wrapper" v-if="output">
                                 <textarea class="output" v-model="output"></textarea>
                                 <div class="output-button-wrapper">
                                     <button class="output-btn btn btn-primary" @click="copyCommandToClipboard">!<i
@@ -450,13 +473,13 @@
                             aria-label="Close"></button>
                     </div>
                 </div>
-                
+
                 <!-- Command Success Toast -->
                 <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive"
                     aria-atomic="true" ref="commandSuccessToast">
                     <div class="d-flex">
                         <div class="toast-body">
-                            Bot-Command Successfully copied to clipboard!
+                            Bot-command successfully copied to clipboard!
                         </div>
                         <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
                             aria-label="Close"></button>
